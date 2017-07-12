@@ -1,5 +1,5 @@
 body {
-  background: #fdfdec url(../img/silver_scales_@2X_green.png) repeat left top;
+  background: white;
 }
 
 section {
@@ -19,62 +19,4 @@ section.content {
 div.section-wrapper {
   max-width: $content-width;
   margin: 0 auto;
-}
-
-.area {
-  //max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  //@extend .clearfix;
-  @include breakpoint(medium up) {
-    max-width: $content-width;
-  }
-}
-
-.focus {
-  padding: 2em 0;
-  border-bottom: 1px solid $lgray;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  @include breakpoint(medium up) {
-    flex-direction: row;
-  }
-  aside {
-    text-align: center;
-    width: 100%;
-    @include breakpoint(medium up) {
-      padding-top: 0.4em;
-      // flex: 1 0 25%;
-      flex-grow: 1;
-      flex-shrink: 0;
-      flex-basis: calc(25% - 10px);
-      margin-right: 10px;
-    }
-  }
-  article {
-    button, a.button {
-      margin: 0 auto;
-    }
-    @include breakpoint(medium up) {
-      // flex: 1 0 75%;
-      flex-grow: 1;
-      flex-shrink: 0;
-      flex-basis: calc(75% - 10px);
-      margin-left: 10px;
-      button, a.button {
-        margin: 0;
-      }
-    }
-  }
-  &:last-child {
-    border: none;
-  }
-}
-
-
-.intro {
-  text-align: center;
 }

@@ -5,9 +5,14 @@ Basic Gulp setup that just compiles, auto-prefixes, and minifies Sass files.
 
 npm install
 
-gulp watch
+`gulp dev`
 
-to watch Sass files and compile on save.
+to watch Sass files and compile on save, creating a __Sourcemap__.
+
+`gulp default` or just `gulp` 
+
+to watch Sass files and compile on save, Auto-prefixing and Minifying
+
 
 ## Also
 

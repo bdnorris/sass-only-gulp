@@ -8,14 +8,6 @@ var runSequence = require('run-sequence');
 // Development Tasks
 // -----------------
 
-// Start browserSync server
-gulp.task('browserSync', function() {
-  browserSync({
-    server: {
-      baseDir: '/'
-    }
-  })
-})
 
 gulp.task('sass', function() {
   return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
@@ -24,7 +16,9 @@ gulp.task('sass', function() {
     	browsers: ['last 3 versions'],
     	cascade: false
     })) // autoprefixer
-    .pipe(cssnano()) // for mini-fying CSS, leaving off for now
+    .pipe(cssnano({
+      reduceIdents: false // this helps prevent breaking animations
+    })) // for mini-fying CSS, leaving off for now
     .pipe(gulp.dest('')) // Outputs it in the root folder
 })
 
@@ -43,16 +37,6 @@ gulp.task('watch', ['sass'], function() {
 gulp.task('watch-dev', ['sass-dev'], function() {
   gulp.watch('scss/**/*.scss', ['sass-dev']);
 })
-
-// Optimization Tasks
-// ------------------
-
-// Optimizing CSS
-gulp.task('useref', function() {
-  return gulp.src('app/*.html')
-    .pipe(useref())
-    .pipe(gulpIf('*.css', cssnano()))
-});
 
 
 // Build Sequences

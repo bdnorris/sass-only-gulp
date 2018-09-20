@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var sourcemaps = require('gulp-sourcemaps');
+var postcss      = require('gulp-postcss');
+var sourcemaps   = require('gulp-sourcemaps');
+var autoprefixer = require('autoprefixer');
 var cssnano = require('gulp-cssnano');
 var runSequence = require('run-sequence');
 
@@ -12,10 +13,11 @@ var runSequence = require('run-sequence');
 gulp.task('sass', function() {
   return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass().on('error', sass.logError)) // Passes it through a gulp-sass, log errors to console
-    .pipe(autoprefixer({
-    	browsers: ['last 3 versions'],
-    	cascade: false
-    })) // autoprefixer
+    .pipe(postcss([ autoprefixer({
+    	browsers: ['>1%'],
+      cascade: false,
+      grid: true,
+    }) ]))
     .pipe(cssnano({
       reduceIdents: false // this helps prevent breaking animations
     })) // for mini-fying CSS, leaving off for now

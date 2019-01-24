@@ -1,65 +1,51 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var postcss      = require('gulp-postcss');
-var sourcemaps   = require('gulp-sourcemaps');
+var postcss = require('gulp-postcss');
+var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('autoprefixer');
 var cssnano = require('gulp-cssnano');
-var runSequence = require('run-sequence');
 
-// Development Tasks
-// -----------------
+const path = {
+  sass: "scss/**/*.scss"
+}
 
-
-gulp.task('sass', function() {
-  return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
-    .pipe(sass().on('error', sass.logError)) // Passes it through a gulp-sass, log errors to console
-    .pipe(postcss([ autoprefixer({
-    	browsers: ['>1%'],
-      cascade: false,
-      grid: true,
-    }) ]))
-    .pipe(cssnano({
-      reduceIdents: false // this helps prevent breaking animations
-    })) // for mini-fying CSS, leaving off for now
-    .pipe(gulp.dest('')) // Outputs it in the root folder
+// Styles task for production `gulp styles`
+gulp.task('styles', function(done) {
+  return gulp
+    .src(path.sass) // Gets all files ending with .scss in app/scss and children dirs
+    .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
+    .pipe(postcss([
+        autoprefixer({
+          browsers: [">1%"],
+          cascade: false,
+          grid: true
+        })
+      ]))
+    .pipe(cssnano({ reduceIdents: false })) // this helps prevent breaking animations // for mini-fying CSS, leaving off for now
+    .pipe(gulp.dest(".")); // Outputs it in the root folder
+  done();
 })
 
-gulp.task('sass-dev', function() {
-  return gulp.src('scss/**/*.scss') // Gets all files ending with .scss in app/scss and children dirs
+// Styles task for development with sourcemaps `gulp dev`
+gulp.task('dev', function(done) {
+  return gulp
+    .src(path.sass) // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sourcemaps.init()) // Init sourcemaps
-    .pipe(sass().on('error', sass.logError)) // Passes it through a gulp-sass, log errors to console
+    .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
     .pipe(sourcemaps.write()) // Write it, it's embedded, making the file much larger. Should be turned off for Production
-    .pipe(gulp.dest('')) // Outputs it in sibling CSS folder
+    .pipe(gulp.dest(".")); // Outputs it in sibling CSS folder
+  done()
 })
 
-// Watchers
-gulp.task('watch', ['sass'], function() {
-  gulp.watch('scss/**/*.scss', ['sass']);
-})
-gulp.task('watch-dev', ['sass-dev'], function() {
-  gulp.watch('scss/**/*.scss', ['sass-dev']);
+// Watch task
+gulp.task('watch', function(){
+  gulp.watch(path.sass, gulp.series("dev"));
 })
 
+// Default `gulp`
+// Styles then watch
+gulp.task('default', gulp.series('dev', 'watch'))
 
-// Build Sequences
-// ---------------
-
-gulp.task('default', function(callback) {
-  runSequence(['sass'], 'watch',
-    callback
-  )
-})
-
-// dev for sourcemaps
-gulp.task('dev', function(callback) {
-  runSequence(['sass-dev'], 'watch-dev',
-    callback
-  )
-})
-
-gulp.task('build', function(callback) {
-  runSequence(
-    'sass',
-    callback
-  )
-})
+// Build `gulp build`
+// Styles then stop
+gulp.task('build', gulp.series('styles'))

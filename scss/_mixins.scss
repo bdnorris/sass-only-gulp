@@ -15,19 +15,28 @@
   // loop through 1 - columns and reset nth childs to fix media query cascade issues
   @for $i from 1 through $columns {
     &:nth-child(#{$i}n) {
-      margin-right: $gutter;
+      margin-right: calc(#{$gutter} - 1px); // -1px for IE rounding issues
     }
   }
   $gutter-size-col-reduce: $gutter*$num-gutters/$columns; // this finds the amount you have to reduce each column width by by taking the gutter, multiplying that by how many gutters you have and then dividing by how many columns you have
-  
+
   // BTW, I always use width as a backup for flex-basis because IE doesn't like calc on flex-basis
-  width: calc(#{100/$columns}% - #{$gutter-size-col-reduce});
   flex-basis: calc(#{100/$columns}% - #{$gutter-size-col-reduce});
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    /* BTW, I always use width as a backup for flex-basis because IE doesn't like calc on flex-basis */
+    width: calc(#{100/$columns}% - #{$gutter-size-col-reduce} - 2px);
+    flex-basis: calc(#{100/$columns}% - #{$gutter-size-col-reduce} - 2px);
+  }
   margin-right: $gutter; // all items get a gutter margin on the right
-  margin-left: 0; 
+  margin-left: 0;
   &:nth-child(#{$columns}n) {
     margin-right: 0; // then we take that margin away from the last column in the row
   }
+
+  // protect from items inside being too large and breaking the grid
+  overflow: hidden;
 }
 
 @mixin responsive-svg($base-height, $base-width, $desired-width) {

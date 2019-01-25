@@ -1,21 +1,34 @@
 html {
-  font-size: $global-font-size;
+  font-size: $base-font-size;
 }
 
 
-/* BOX MODEL SETTING FOR ALL ELEMENTS BY DEFAULT
-THIS IS BETTER THAN DEFAULT, YOU SHOULD ALWAYS USE THIS:
-*/
+// BOX MODEL SETTING FOR ALL ELEMENTS BY DEFAULT
 html {
   box-sizing: border-box;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
-/* END BOX MODEL SETTINGS */
+// END BOX MODEL SETTINGS
 
-$hover-timing: 0.5s;
-$sans: 'Open Sans', Helvetica, Roboto, Arial, sans-serif;
+
+body {
+  /*Setting the base font family*/
+  font-family: $sans;
+  /* font weight normalization */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+// Responsive Images
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 
 .clearfix {
   //clearfix
@@ -30,5 +43,4 @@ $sans: 'Open Sans', Helvetica, Roboto, Arial, sans-serif;
   zoom: 1; /* For IE 6/7 (trigger hasLayout) */
 }
 
-$content-width: 828px;
-$border-radius: 5px;
+

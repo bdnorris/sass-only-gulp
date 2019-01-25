@@ -9,7 +9,7 @@ textarea {
   padding: 0.5em 0.666em;
   color: $text;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1rem; // needs to be at least 16px to avoid iOS zooming
   border-radius: 0;
   -webkit-border-radius: 0;
   -webkit-appearance: none;

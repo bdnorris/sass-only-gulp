@@ -1,3 +1,5 @@
+// Breakpoints
+// These are used in the foundation breakpoint mixin
 $small:   0;
 $medium:  640px;
 $large:   1024px;
@@ -5,5 +7,8 @@ $xlarge:  1200px;
 $xxlarge: 1440px;
 
 
+$global-font-size: 16px; // used on HTML font size from base/global
 $global-padding: 1em;
+
+$sans: 'Source Sans', sans-serif;
 

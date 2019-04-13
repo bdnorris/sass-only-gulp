@@ -10,7 +10,7 @@ const path = {
 }
 
 // Styles task for production `gulp styles`
-gulp.task('styles', function(done) {
+gulp.task('styles', function() {
   return gulp
     .src(path.sass) // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
@@ -23,18 +23,16 @@ gulp.task('styles', function(done) {
       ]))
     .pipe(cssnano({ reduceIdents: false })) // this helps prevent breaking animations // for mini-fying CSS, leaving off for now
     .pipe(gulp.dest(".")); // Outputs it in the root folder
-  done();
 })
 
 // Styles task for development with sourcemaps `gulp dev`
-gulp.task('dev', function(done) {
+gulp.task('dev', function() {
   return gulp
     .src(path.sass) // Gets all files ending with .scss in app/scss and children dirs
     .pipe(sourcemaps.init()) // Init sourcemaps
     .pipe(sass().on("error", sass.logError)) // Passes it through a gulp-sass, log errors to console
     .pipe(sourcemaps.write()) // Write it, it's embedded, making the file much larger. Should be turned off for Production
     .pipe(gulp.dest(".")); // Outputs it in sibling CSS folder
-  done()
 })
 
 // Watch task

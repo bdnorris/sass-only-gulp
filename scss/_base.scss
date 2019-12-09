@@ -1,5 +1,9 @@
 // * base styles
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: $sans;
   font-size: $browser-context * 1px; // ! the multiplication enforces pixels, even if you don't specify

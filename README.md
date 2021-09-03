@@ -1,3 +1,9 @@
+# DEPRECATED
+
+Abandoning in favor of 
+- https://github.com/bdnorris/gulp-starter
+- https://github.com/bdnorris/sass-starter
+
 # sass-only-gulp
 Basic Gulp setup that just compiles, auto-prefixes, and minifies Sass files.
 
